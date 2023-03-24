@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="css/help_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" /> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link href="css/help_style.css" rel="stylesheet" />
+<script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+</head>
+
+<body>
+
+    <!--Wiki help doc start-->
+    <div>
+        <i title="Help" onclick="helpicon()" class="fa fa-question-circle"
+            style="font-size:24px;float: right;margin-right: 32px;margin-top: 32px;" data-toggle="modal"
+            data-target="#helpModal"></i>
+    </div>
+
+    <!-- Help Modals -->
+    <div class="portfolio-modal modal fade" id="helpModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button class="close_help" type="button" data-dismiss="modal" aria-label="Close">
+                    <ion-icon class="ion-close-round"></ion-icon>
+                </button>
+                <!-- Active it when content page to display -->
+                <div id="contenShowSection" style="display: none;">
+                    <div class="modal-header border-0">
+                        <div class="pev_next_action">
+                            <button class="prev" onclick="showLoginForm()">
+                                <ion-icon class="ion-ios-arrow-back"></ion-icon>
+                            </button>
+                            <button>
+                                <ion-icon class="ion-ios-arrow-forward"></ion-icon>
+                            </button>
+                        </div>
+                        <div class="page_header" id="showContentHeader">
+
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="help_content">
+                            <div class="help_content_inner">
+                                <div id="showContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- For Editor View -->
+                <div id="editorSection" style="display: none;">
+                    <div class="modal-header border-0">
+                        <div class="page_header">
+                            <div class="pev_next_action" id="addeditprevNext">
+                                <button class="prev">
+                                    <ion-icon class="ion-ios-arrow-back"></ion-icon>
+                                </button>
+                                <button>
+                                    <ion-icon class="ion-ios-arrow-forward"></ion-icon>
+                                </button>
+                            </div>
+                           
+                            <h3 id="addeditTitle"></h3>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+
+                        <form id="contentSaveForm" method="post" onsubmit="return false">
+                            <input type="hidden" id="contentId">
+                            <div class="form-group" style="text-align: left;">
+                                <label for="doctitle">Title</label>
+                                <input class="form-control" type="text" name="doctitle" id="docTitle"
+                                    placeholder="title">
+                            </div>
+                            <div class="form-group" style="text-align: left;">
+                                <label for="docdescription">Description</label>
+                                <input class="form-control" type="text" name="docdescription" id="docDescription"
+                                    placeholder="description">
+                            </div>
+                            <div class="form-group" style="text-align: left;">
+                                <label for="pageurl">URL</label>
+                                <input class="form-control" type="text" name="pageurl" id="pageUrl"
+                                    placeholder="page url">
+                            </div>
+                            <div class="form-group" style="text-align: left;">
+                                <label for="pageckeditor" style="text-align: left;">Content</label>
+                                <textarea id="pageckeditor" name="pageckeditor"
+                                    placeholder="write content here..."></textarea>
+                                <!-- <script>
+                                    CKEDITOR.replace('pageckeditor');
+                                </script> -->
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- For Login View -->
+                <div id="loginSection" style="display: none;">
+                    <div class="modal-header border-0">
+                        <div class="page_header">
+                            <h3>Login</h3>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="loginView">
+                        </div>
+                        <div id="loginForm" style="display: none;">
+                            <form id="loginform" method="post" onsubmit="return false">
+                                <div class="form-group">
+                                    <label for="inputEmail">Email</label>
+                                    <input type="email" class="form-control" id="clientEmail" name="clientEmail"
+                                        placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" class="form-control" id="clientPassword"
+                                        name="clientPassword" placeholder="Password" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Help Modals End-->
+    <!--Wiki help doc end-->
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <!-- Bootstrap core JS-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Core theme JS-->
+    <!-- <script src="js/scripts.js"></script> -->
+
+
+    <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
+
+    <script>
+
+
+        $(document).ready(function () {
+           
+            var token = localStorage.getItem('token');
+
+            $("#loginform").on('submit', function () {
+                var formData = $("#loginform").serialize();
+                $.post("http://localhost:3011/api/login", formData).done(function (res) {
+                    if (res.data.success) {
+                        localStorage.setItem("token", res.data.details.token);
+                        $('#loginForm').hide();
+                        $('#loginSection').hide(0);
+                        $('#loginform').trigger("reset");
+                        helpicon();
+                    } else {
+                        alert(res.data.message);
+                        $('#loginform').trigger("reset");
+                    }
+                });
+
+            });
+
+            $('#contentSaveForm').on('submit', function () {
+                var token = localStorage.getItem('token');
+                var haveToken = checkToken(token);
+                if (haveToken) {
+                    var currentCkdata = CKEDITOR.instances.pageckeditor.getData();
+                    var contentId = $('#contentId').val();
+                    var pageurl = $('#pageUrl').val();
+                    var title = $('#docTitle').val();
+                    var description = $('#docDescription').val();
+                    var currentURL = window.location.href;
+                    var domainName = window.location.origin;
+                    var token = localStorage.getItem('token');
+                    $.ajax({
+                        url: "http://localhost:3011/api/save-page-doc",
+                        type: 'post',
+                        data: {
+                            docData: currentCkdata,
+                            domain: domainName,
+                            url: pageurl,
+                            title: title,
+                            description: description,
+                            contentId: contentId
+                        },
+                        headers: { "token": token },
+                        success: function (res) {
+                            if (res.data.success) {
+                                $('#contentSaveForm').trigger("reset");
+                                alert(res.data.message);
+                                $('#helpModal').modal('toggle');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        function helpicon() {
+            CKEDITOR.replace('pageckeditor');
+            var currentURL = window.location.href;
+            var token = localStorage.getItem('token');
+            $.ajax({
+                url: "http://localhost:3011/api/fetch-page-data",
+                type: 'post',
+                data: { url: currentURL },
+                headers: { "token": token },
+                success: function (res) {
+                    if (res.data.success) {
+                        var resData = res.data.details;
+                        $('#showContentHeader').html(`<h3>` + resData.title + `</h3>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li>Photoshop Workshop</a></li>
+                            </ul>
+                            <button class="btn btn-primary btn-sm" onclick="showCkEditor(`+ resData.id + `)">Edit</button>
+                            <p>`+ resData.description + `</p>`);
+                        $('#showContent').html(resData.content);
+
+                        $('#editorSection').hide(0);
+                        $('#contenShowSection').show(0);
+
+                    } else {
+
+                        if (typeof res.data.details !== "undefined") {
+                            // $('#addeditprevNext').hide(0);
+                            $('#addeditTitle').html("Add");
+                            $('#editorSection').show(0);
+                        } else {
+                            var loginHtml = `<p class="mb-4">There is no help. Login to add help content.</p>
+                            <button class="btn btn-primary" onclick="showLoginForm()">Login</button>`;
+                            $('#loginView').html(loginHtml);
+                            $('#loginSection').show(0);
+
+                            $('#editorSection').hide(0);
+                            $('#contenShowSection').hide(0);
+                        }
+                    }
+                }
+            });
+        }
+        function showCkEditor(id) {
+            var token = localStorage.getItem('token');
+            var haveToken = checkToken(token);
+            if (haveToken) {
+                var token = localStorage.getItem('token');
+                $.ajax({
+                    url: "http://localhost:3011/api/fetch-page-databy-id",
+                    type: 'post',
+                    data: { id: id },
+                    headers: { "token": token },
+                    success: function (res) {
+                        if (res.data.success) {
+                            var resData = res.data.details;
+                            $('#contenShowSection').hide(0);
+                            $('#addeditTitle').html("Edit");
+                            CKEDITOR.instances.pageckeditor.setData(resData.content);
+                            $('#contentId').val(resData.id);
+                            $('#pageUrl').val(resData.url);
+                            $('#docTitle').val(resData.title);
+                            $('#docDescription').val(resData.description);
+
+                            $('#editorSection').show(0);
+                        } else {
+                            alert(res);
+                            // if (typeof res.data.details !== "undefined") {
+                            //     $('#editorSection').show(0);
+                            // } else {
+                            //     var loginHtml = `<p class="mb-4">There is no help. Login to add help content.</p>
+                            //     <button class="btn btn-primary" onclick="showLoginForm()">Login</button>`;
+                            //     $('#loginSection').show(0);
+                            //     $('#loginView').html(loginHtml);
+                            //     $('#editorSection').hide(0);
+                            //     $('#contenShowSection').hide(0);
+                            // }
+                        }
+                    }
+                });
+            }
+        }
+        function showLoginForm() {
+            $('#loginView').html('');
+            $('#loginForm').show(0);
+        }
+        function checkToken(token) {
+            if (!token) {
+                var loginHtml = `<p class="mb-4">There is no help. Login to add help content.</p>
+                            <button class="btn btn-primary" onclick="showLoginForm()">Login</button>`;
+
+                $('#loginView').html(loginHtml);
+                $('#editorSection').hide(0);
+                $('#contenShowSection').hide(0);
+                $('#loginSection').show(0);
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+</body>
+
+</html>
